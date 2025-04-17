@@ -344,3 +344,58 @@ async function relatorioClientes() {
 }
 // == Fim - relatório de clientes =============================
 // ============================================================
+
+
+// ============================================================
+// == Crud Read ===============================================
+
+// validação da busca
+ipcMain.on('validate-search', () => {
+    dialog.showMessageBox({
+        type: 'warning',
+        title: 'Atenção',
+        message: 'Preencha o campo de busca',
+        buttons: ['OK']
+    })
+})
+
+ipcMain.on('search-name', async (event, cliName) => {
+    // teste de recebimento do nome do cliente (passo2)
+    console.log(cliName)
+    try {
+        // Passos 3 e 4 (busca dos dados do cliente pelo nome)
+        // RegExp (expressão regular 'i' -> insensitive (ignorar letra smaiúsculas ou minúsculas))
+        const client = await clientModel.find({
+            nomeCliente: new RegExp(cliName, 'i')
+        })
+        // teste da busca do cliente pelo nome (passos 3 e 4)
+        console.log(client)
+        // Melhoria da experiência com usuário ( se não existir um cliente cadastrado enviar uma mensagem ao usuário questionando que ele deseja cadatrar este novo cliente )
+        // enviar ao renderizador (rendererCliente) os dados do cliente (passo 5) OBS: não esquecer de converter para string "JSON.stringify"
+        if (client.length === 0) {
+            // questionar o usuario....
+            dialog.showMessageBox({
+                type: 'Warning',
+                title: 'Aviso',
+                message: 'Cliente não cadastrado.\nDeseja cadastrar este cliente:',
+                defaultId: 0,
+                buttons: ['Sim', 'Não'] // [0, 1] default: 0 = Sim
+            }).then((result) => {
+                // se o botão sim for pressionado
+                // Enviar ao rendererCliente um pedido para limpar os campos (reutilizar a api do preload 'reset-form)
+                if (result.response === 0)
+                    // Enviar o rendererCliente um pedido para recortar e copiar o nome do cliente do campo de busca para o campo nome (evitar que o usuario)
+                event.reply('set-name')
+            })
+
+        } else {
+            // enviar ao renderizador  (rendererCliente)
+            event.reply('render-client', JSON.stringify(client))
+        }
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// == Fim - Crud Read =========================================
+// ============================================================
