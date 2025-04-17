@@ -9,16 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://https://github.com/caiolopes17/cadastroProf.git"
+    "url": "git+https:/https://github.com/caiolopes17/cadastroProf.git"
   },
   "author": "Professor José de Assis",
   "license": "MIT",
   "bugs": {
     "url": "https://https://github.com/caiolopes17/cadastroProf#issues"
   },
-  "homepage": "https://https://github.com/caiolopes17/cadastroProf",
+  "homepage": "https://https://github.com/caiolopes17/cadastroProf#readme",
   "devDependencies": {
-    "electron": "^34.5.1"
+    "electron": "^34.2.0"
   },
   "dependencies": {
     "jspdf": "^3.0.1",

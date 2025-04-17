@@ -84,16 +84,16 @@ frmClient.addEventListener('submit', async (event) => {
 // ============================================================
 // == CRUD Read ===============================================
 
-// Star o nome do cliente para fazer um novo cadstro se a busca retornar que o cliente não está cadastrado.
+// setar o nome do cliente para fazer um novo cadastro se a busca retornar que o cliente não está cadastrado.
 api.setName((args) => {
-    console.log("teste do ipc 'set-name")
-    // "Recortar o nome da busca e setar no campo nome do form"
+    console.log("teste do IPC 'set-name'")
+    // "recortar" o nome da busca e setar no campo nome do form
     let busca = document.getElementById('searchClient').value
-    // Foco no campo nome
-    foco.value =""
-    // Limpar o campo de busca
-    nameClient.focus ()
-    // Copiar  o nome do cliente para o campo nome
+    // limpar o campo de busca (foco foi capturado de forma global)
+    foco.value=""
+    // foco no campo nome
+    nameClient.focus()    
+    // copiar o nome do cliente para o campo nome
     nameClient.value = busca
 })
 
